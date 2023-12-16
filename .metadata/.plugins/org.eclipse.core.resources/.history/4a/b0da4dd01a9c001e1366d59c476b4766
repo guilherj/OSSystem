@@ -1,0 +1,5 @@
+package br.com.guilherme.osSystem.exceptions;
+
+public interface ControllerExceptionHandler {
+
+}

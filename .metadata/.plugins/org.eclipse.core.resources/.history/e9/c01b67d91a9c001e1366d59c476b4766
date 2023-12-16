@@ -1,0 +1,15 @@
+package br.com.guilherme.osSystem.exceptions;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+@ControllerAdvice
+public ControllerExceptionHandler {
+	
+	@ExceptionHandler(ObjectNotFoundException.class)
+	public ResponseEntity<StandartError> objectNotFoundException (ObjectNotFoundException ex) {
+		
+	}
+
+}

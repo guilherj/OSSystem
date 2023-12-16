@@ -1,0 +1,30 @@
+package br.com.guilherme.osSystem.domain;
+
+import java.time.LocalDateTime;
+
+import br.com.guilherme.osSystem.domain.enums.Prioridade;
+import br.com.guilherme.osSystem.domain.enums.Status;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(of = {"id"})
+public class OS {
+	
+	private Integer id;
+	private LocalDateTime dataAbertura;
+	private LocalDateTime dataFechamento;
+	private Prioridade prioridade;
+	private String observacoes;
+	private Status status;
+	
+	private Tecnico tecnico;
+	private Cliente cliente;	
+
+}
