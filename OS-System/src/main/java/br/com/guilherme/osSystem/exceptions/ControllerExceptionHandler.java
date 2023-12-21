@@ -16,5 +16,12 @@ public class ControllerExceptionHandler {
 		StandartError error = new StandartError(LocalDateTime.now(), HttpStatus.NOT_FOUND.value(), ex.getMessage());		
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
 	}
+	
+	@ExceptionHandler(DataIntegratyViolationException.class)
+	public ResponseEntity<StandartError> dataIntegratyViolationException (DataIntegratyViolationException ex) {
+		
+		StandartError error = new StandartError(LocalDateTime.now(), HttpStatus.BAD_REQUEST .value(), ex.getMessage());		
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+	}
 
 }

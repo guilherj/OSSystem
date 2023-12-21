@@ -1,5 +1,0 @@
-package br.com.guilherme.osSystem.exceptions;
-
-public class ObjectNotFoundException {
-
-}
