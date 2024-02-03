@@ -6,10 +6,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.guilherme.osSystem.domain.Pessoa;
 import br.com.guilherme.osSystem.domain.Tecnico;
 import br.com.guilherme.osSystem.dtos.TecnicoDTO;
 import br.com.guilherme.osSystem.exceptions.DataIntegratyViolationException;
 import br.com.guilherme.osSystem.exceptions.ObjectNotFoundException;
+import br.com.guilherme.osSystem.repositories.PessoaRepository;
 import br.com.guilherme.osSystem.repositories.TecnicoRepository;
 import br.com.guilherme.osSystem.util.OsSystemConstans;
 import jakarta.validation.Valid;
@@ -19,6 +21,9 @@ public class TecnicoService {
 
 	@Autowired
 	private TecnicoRepository repository;
+	
+	@Autowired
+	private PessoaRepository pessoaRepository;
 
 	public Tecnico findById(Integer id) {
 		Optional<Tecnico> obj = repository.findById(id);
@@ -65,8 +70,8 @@ public class TecnicoService {
 		return OsSystemConstans.DELETE_TECNICO;
 	}
 	
-	private Tecnico findByCPF(TecnicoDTO dto) {
-		Tecnico obj = repository.findByCPF(dto.getCpf());
+	public Pessoa findByCPF(TecnicoDTO dto) {
+		Pessoa obj = pessoaRepository.findByCPF(dto.getCpf());
 		
 		if(obj != null) {
 			return obj;
