@@ -6,12 +6,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.guilherme.osSystem.OsSystemConstans;
 import br.com.guilherme.osSystem.domain.Tecnico;
 import br.com.guilherme.osSystem.dtos.TecnicoDTO;
 import br.com.guilherme.osSystem.exceptions.DataIntegratyViolationException;
 import br.com.guilherme.osSystem.exceptions.ObjectNotFoundException;
 import br.com.guilherme.osSystem.repositories.TecnicoRepository;
+import br.com.guilherme.osSystem.util.OsSystemConstans;
 import jakarta.validation.Valid;
 
 @Service
@@ -37,17 +37,8 @@ public class TecnicoService {
 		 		
 		repository.save(new Tecnico(null, tecnicoDTO.getNome(), tecnicoDTO.getCpf(), tecnicoDTO.getTelefone()));
 		return OsSystemConstans.SAVE_TECNICO;
-	}
+	}	
 	
-	private Tecnico findByCPF(TecnicoDTO dto) {
-		Tecnico obj = repository.findByCPF(dto.getCpf());
-		
-		if(obj != null) {
-			return obj;
-		}
-		return null;
-	}
-
 	public String update(Integer id, @Valid TecnicoDTO tecnicoDTO) {
 		Tecnico oldObj = findById(id);
 		
@@ -61,5 +52,27 @@ public class TecnicoService {
 		repository.save(oldObj);		
 		return OsSystemConstans.UPDATE_TECNICO;
 	}
+	
+	public String delete(Integer id) {
+		Tecnico obj = findById(id);
+		
+		if(obj.getList().size() > 0) {
+			throw new DataIntegratyViolationException(OsSystemConstans.TECNICO_NAO_DELETADO);
+		}
+		
+		repository.delete(obj);
+		
+		return OsSystemConstans.DELETE_TECNICO;
+	}
+	
+	private Tecnico findByCPF(TecnicoDTO dto) {
+		Tecnico obj = repository.findByCPF(dto.getCpf());
+		
+		if(obj != null) {
+			return obj;
+		}
+		return null;
+	}
+
 
 }
