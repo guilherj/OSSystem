@@ -6,11 +6,13 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.guilherme.osSystem.OsSystemConstans;
 import br.com.guilherme.osSystem.domain.Tecnico;
 import br.com.guilherme.osSystem.dtos.TecnicoDTO;
 import br.com.guilherme.osSystem.exceptions.DataIntegratyViolationException;
 import br.com.guilherme.osSystem.exceptions.ObjectNotFoundException;
 import br.com.guilherme.osSystem.repositories.TecnicoRepository;
+import jakarta.validation.Valid;
 
 @Service
 public class TecnicoService {
@@ -30,11 +32,11 @@ public class TecnicoService {
 	public String create(TecnicoDTO tecnicoDTO) {	
 		
 		if(findByCPF(tecnicoDTO) != null) {
-			throw new DataIntegratyViolationException("CPF já cadastrado na base de dados!");
+			throw new DataIntegratyViolationException(OsSystemConstans.CPF_JA_CADASTRADO);
 		}
 		 		
 		repository.save(new Tecnico(null, tecnicoDTO.getNome(), tecnicoDTO.getCpf(), tecnicoDTO.getTelefone()));
-		return "Técnico criado com sucesso!";
+		return OsSystemConstans.SAVE_TECNICO;
 	}
 	
 	private Tecnico findByCPF(TecnicoDTO dto) {
@@ -44,6 +46,20 @@ public class TecnicoService {
 			return obj;
 		}
 		return null;
+	}
+
+	public String update(Integer id, @Valid TecnicoDTO tecnicoDTO) {
+		Tecnico oldObj = findById(id);
+		
+		if(findByCPF(tecnicoDTO) != null && findByCPF(tecnicoDTO).getId() != id) {
+			throw new DataIntegratyViolationException(OsSystemConstans.CPF_JA_CADASTRADO);
+		}
+		
+		oldObj.setNome(tecnicoDTO.getNome());
+		oldObj.setCpf(tecnicoDTO.getCpf());
+		oldObj.setTelefone(tecnicoDTO.getTelefone());
+		repository.save(oldObj);		
+		return OsSystemConstans.UPDATE_TECNICO;
 	}
 
 }
