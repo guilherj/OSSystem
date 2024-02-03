@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.guilherme.osSystem.dtos.TecnicoDTO;
 import br.com.guilherme.osSystem.services.TecnicoService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/tecnicos")
@@ -35,7 +36,7 @@ public class TecnicoController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<String> create(@RequestBody TecnicoDTO tecnicoDTO) {
+	public ResponseEntity<String> create(@Valid @RequestBody TecnicoDTO tecnicoDTO) {
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.create(tecnicoDTO));
 		
