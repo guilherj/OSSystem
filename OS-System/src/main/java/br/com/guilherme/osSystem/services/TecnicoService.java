@@ -23,7 +23,7 @@ public class TecnicoService {
 	private TecnicoRepository repository;
 	
 	@Autowired
-	private PessoaRepository pessoaRepository;
+	private PessoaService pessoaService;
 
 	public Tecnico findById(Integer id) {
 		Optional<Tecnico> obj = repository.findById(id);
@@ -36,18 +36,18 @@ public class TecnicoService {
 
 	public String create(TecnicoDTO tecnicoDTO) {	
 		
-		if(findByCPF(tecnicoDTO) != null) {
+		if(pessoaService.findByCPF(tecnicoDTO.getCpf()) != null) {
 			throw new DataIntegratyViolationException(OsSystemConstans.CPF_JA_CADASTRADO);
 		}
 		 		
 		repository.save(new Tecnico(null, tecnicoDTO.getNome(), tecnicoDTO.getCpf(), tecnicoDTO.getTelefone()));
-		return OsSystemConstans.SAVE_TECNICO;
+		return OsSystemConstans.TECNICO + OsSystemConstans.SAVE_SUCESSO;
 	}	
 	
-	public String update(Integer id, @Valid TecnicoDTO tecnicoDTO) {
+	public String update(Integer id, TecnicoDTO tecnicoDTO) {
 		Tecnico oldObj = findById(id);
 		
-		if(findByCPF(tecnicoDTO) != null && findByCPF(tecnicoDTO).getId() != id) {
+		if(pessoaService.findByCPF(tecnicoDTO.getCpf()) != null && pessoaService.findByCPF(tecnicoDTO.getCpf()).getId() != id) {
 			throw new DataIntegratyViolationException(OsSystemConstans.CPF_JA_CADASTRADO);
 		}
 		
@@ -55,29 +55,19 @@ public class TecnicoService {
 		oldObj.setCpf(tecnicoDTO.getCpf());
 		oldObj.setTelefone(tecnicoDTO.getTelefone());
 		repository.save(oldObj);		
-		return OsSystemConstans.UPDATE_TECNICO;
+		return OsSystemConstans.TECNICO + OsSystemConstans.UPDATE_SUCESSO;
 	}
 	
 	public String delete(Integer id) {
 		Tecnico obj = findById(id);
 		
 		if(obj.getList().size() > 0) {
-			throw new DataIntegratyViolationException(OsSystemConstans.TECNICO_NAO_DELETADO);
+			throw new DataIntegratyViolationException(OsSystemConstans.TECNICO + OsSystemConstans.POSSUI_OS_NAO_PODE_DELETAR);
 		}
 		
 		repository.delete(obj);
 		
-		return OsSystemConstans.DELETE_TECNICO;
+		return OsSystemConstans.TECNICO + OsSystemConstans.DELETE_SUCESSO;
 	}
-	
-	public Pessoa findByCPF(TecnicoDTO dto) {
-		Pessoa obj = pessoaRepository.findByCPF(dto.getCpf());
-		
-		if(obj != null) {
-			return obj;
-		}
-		return null;
-	}
-
 
 }

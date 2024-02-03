@@ -15,37 +15,37 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.guilherme.osSystem.dtos.TecnicoDTO;
-import br.com.guilherme.osSystem.services.TecnicoService;
+import br.com.guilherme.osSystem.dtos.ClienteDTO;
+import br.com.guilherme.osSystem.services.ClienteService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping(value = "api/v1/tecnicos")
-public class TecnicoController {
+@RequestMapping(value = "api/v1/clientes")
+public class ClienteController {
 	
 	@Autowired
-	private TecnicoService service;
+	private ClienteService service;
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<TecnicoDTO> findById(@PathVariable Integer id) {		
+	public ResponseEntity<ClienteDTO> findById(@PathVariable Integer id) {		
 		
-		return ResponseEntity.ok().body(new TecnicoDTO(service.findById(id)));		
+		return ResponseEntity.ok().body(new ClienteDTO(service.findById(id)));		
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<TecnicoDTO>> findAll() {
-		return ResponseEntity.ok().body(service.findAll().stream().map(t -> new TecnicoDTO(t)).collect(Collectors.toList()));
+	public ResponseEntity<List<ClienteDTO>> findAll() {
+		return ResponseEntity.ok().body(service.findAll().stream().map(t -> new ClienteDTO(t)).collect(Collectors.toList()));
 	}
 	
 	@PostMapping
-	public ResponseEntity<String> create(@Valid @RequestBody TecnicoDTO tecnicoDTO) {
+	public ResponseEntity<String> create(@Valid @RequestBody ClienteDTO ClienteDTO) {
 		
-		return ResponseEntity.status(HttpStatus.CREATED).body(service.create(tecnicoDTO));		
+		return ResponseEntity.status(HttpStatus.CREATED).body(service.create(ClienteDTO));		
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<String> update(@PathVariable Integer id, @Valid @RequestBody TecnicoDTO tecnicoDTO) {
-		return ResponseEntity.status(HttpStatus.OK).body(service.update(id, tecnicoDTO));		
+	public ResponseEntity<String> update(@PathVariable Integer id, @Valid @RequestBody ClienteDTO ClienteDTO) {
+		return ResponseEntity.status(HttpStatus.OK).body(service.update(id, ClienteDTO));		
 	}
 	
 	@DeleteMapping(value = "/{id}")

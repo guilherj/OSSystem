@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import org.hibernate.validator.constraints.br.CPF;
 
-import br.com.guilherme.osSystem.domain.Tecnico;
+import br.com.guilherme.osSystem.domain.Cliente;
 import br.com.guilherme.osSystem.util.OsSystemConstans;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
@@ -14,7 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class TecnicoDTO implements Serializable{
+public class ClienteDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
@@ -29,7 +29,7 @@ public class TecnicoDTO implements Serializable{
 	@NotEmpty(message = OsSystemConstans.CAMPO_TELEFONE_OBRIGATORIO)
 	private String telefone;	
 	
-	public TecnicoDTO(Tecnico obj) {
+	public ClienteDTO(Cliente obj) {
 		
 		this.id = obj.getId();
 		this.nome = obj.getNome();
