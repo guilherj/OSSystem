@@ -6,15 +6,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.guilherme.osSystem.domain.Pessoa;
 import br.com.guilherme.osSystem.domain.Cliente;
 import br.com.guilherme.osSystem.dtos.ClienteDTO;
 import br.com.guilherme.osSystem.exceptions.DataIntegratyViolationException;
 import br.com.guilherme.osSystem.exceptions.ObjectNotFoundException;
-import br.com.guilherme.osSystem.repositories.PessoaRepository;
 import br.com.guilherme.osSystem.repositories.ClienteRepository;
 import br.com.guilherme.osSystem.util.OsSystemConstans;
-import jakarta.validation.Valid;
 
 @Service
 public class ClienteService {
