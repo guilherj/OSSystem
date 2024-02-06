@@ -1,0 +1,6 @@
+{
+  "name": "OS-System",
+  "description": "Project for udemy course.",
+  "repository": "https://github.com/guilherj/OSSystem",
+  "image": "heroku/java"  
+}
