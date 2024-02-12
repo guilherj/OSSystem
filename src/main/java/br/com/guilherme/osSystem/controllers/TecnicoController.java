@@ -39,18 +39,18 @@ public class TecnicoController {
 		return ResponseEntity.ok().body(service.findAll().stream().map(t -> new TecnicoDTO(t)).collect(Collectors.toList()));
 	}
 	
-	@PostMapping
+	@PostMapping(produces = {"application/json"})
 	public ResponseEntity<String> create(@Valid @RequestBody TecnicoDTO tecnicoDTO) {
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.create(tecnicoDTO));		
 	}
 	
-	@PutMapping(value = "/{id}")
+	@PutMapping(value = "/{id}", produces = {"application/json"})
 	public ResponseEntity<String> update(@PathVariable Integer id, @Valid @RequestBody TecnicoDTO tecnicoDTO) {
 		return ResponseEntity.status(HttpStatus.OK).body(service.update(id, tecnicoDTO));		
 	}
 	
-	@DeleteMapping(value = "/{id}")
+	@DeleteMapping(value = "/{id}", produces = {"application/json"})
 	public ResponseEntity<String> delete(@PathVariable Integer id) {
 		return ResponseEntity.status(HttpStatus.OK).body(service.delete(id));
 	}

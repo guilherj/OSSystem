@@ -38,13 +38,13 @@ public class OsController {
 		return ResponseEntity.ok().body(list);		
 	}
 	
-	@PostMapping
+	@PostMapping(produces = {"application/json"})
 	public ResponseEntity<String> create(@Valid @RequestBody OSDTO obj) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.create(obj));	
 		
 	}
 	
-	@PutMapping
+	@PutMapping(produces = {"application/json"})
 	public ResponseEntity<String> update(@Valid @RequestBody OSDTO obj) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.update(obj));	
 		

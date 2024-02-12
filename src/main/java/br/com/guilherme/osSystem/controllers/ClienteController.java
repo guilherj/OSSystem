@@ -39,18 +39,18 @@ public class ClienteController {
 		return ResponseEntity.ok().body(service.findAll().stream().map(t -> new ClienteDTO(t)).collect(Collectors.toList()));
 	}
 	
-	@PostMapping
+	@PostMapping(produces = {"application/json"})
 	public ResponseEntity<String> create(@Valid @RequestBody ClienteDTO ClienteDTO) {
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.create(ClienteDTO));		
 	}
 	
-	@PutMapping(value = "/{id}")
+	@PutMapping(value = "/{id}", produces = {"application/json"})
 	public ResponseEntity<String> update(@PathVariable Integer id, @Valid @RequestBody ClienteDTO ClienteDTO) {
 		return ResponseEntity.status(HttpStatus.OK).body(service.update(id, ClienteDTO));		
 	}
 	
-	@DeleteMapping(value = "/{id}")
+	@DeleteMapping(value = "/{id}", produces = {"application/json"})
 	public ResponseEntity<String> delete(@PathVariable Integer id) {
 		return ResponseEntity.status(HttpStatus.OK).body(service.delete(id));
 	}
