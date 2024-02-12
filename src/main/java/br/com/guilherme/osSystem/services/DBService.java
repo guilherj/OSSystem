@@ -1,5 +1,7 @@
 package br.com.guilherme.osSystem.services;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,8 +45,10 @@ public class DBService {
 		OS os1 = new OS(null, Prioridade.BAIXA, "Manutenção PC Recepção.", Status.ABERTO, t2, c2);
 		OS os2 = new OS(null, Prioridade.ALTA, "Servidor não liga.", Status.ANDAMENTO, t1, c1);
 		OS os3 = new OS(null, Prioridade.BAIXA, "Configuração de email do usuário novo.", Status.ENCERRADO, t3, c3);
+		os3.setDataFechamento(LocalDateTime.now());
 		OS os4 = new OS(null, Prioridade.MEDIA, "PDV desligando sozinho.", Status.ANDAMENTO, t4, c4);
 		OS os5 = new OS(null, Prioridade.ALTA, "Micro do dono não liga.", Status.ENCERRADO, t1, c5);
+		os5.setDataFechamento(LocalDateTime.now());
 		OS os6 = new OS(null, Prioridade.MEDIA, "Troca de Monitor do pc recepção", Status.ABERTO, t5, c6);
 		
 		t1.getList().add(os2);

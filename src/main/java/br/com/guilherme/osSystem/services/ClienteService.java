@@ -31,17 +31,16 @@ public class ClienteService {
 		return repository.findAll();
 	}
 
-	public String create(ClienteDTO ClienteDTO) {	
+	public Cliente create(ClienteDTO ClienteDTO) {	
 		
 		if(pessoaService.findByCPF(ClienteDTO.getCpf()) != null) {
 			throw new DataIntegratyViolationException(OsSystemConstans.CPF_JA_CADASTRADO);
-		}
-		 		
-		repository.save(new Cliente(null, ClienteDTO.getNome(), ClienteDTO.getCpf(), ClienteDTO.getTelefone()));
-		return OsSystemConstans.CLIENTE + OsSystemConstans.SAVE_SUCESSO;
+		}		 		
+		
+		return repository.save(new Cliente(null, ClienteDTO.getNome(), ClienteDTO.getCpf(), ClienteDTO.getTelefone()));
 	}	
 	
-	public String update(Integer id, ClienteDTO ClienteDTO) {
+	public Cliente update(Integer id, ClienteDTO ClienteDTO) {
 		Cliente oldObj = findById(id);
 		
 		if(pessoaService.findByCPF(ClienteDTO.getCpf()) != null && pessoaService.findByCPF(ClienteDTO.getCpf()).getId() != id) {
@@ -51,8 +50,8 @@ public class ClienteService {
 		oldObj.setNome(ClienteDTO.getNome());
 		oldObj.setCpf(ClienteDTO.getCpf());
 		oldObj.setTelefone(ClienteDTO.getTelefone());
-		repository.save(oldObj);		
-		return OsSystemConstans.CLIENTE + OsSystemConstans.UPDATE_SUCESSO;
+				
+		return repository.save(oldObj);
 	}
 	
 	public String delete(Integer id) {

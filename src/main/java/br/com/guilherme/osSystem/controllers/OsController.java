@@ -1,5 +1,6 @@
 package br.com.guilherme.osSystem.controllers;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.guilherme.osSystem.dtos.OSDTO;
 import br.com.guilherme.osSystem.services.OSService;
@@ -39,14 +41,19 @@ public class OsController {
 	}
 	
 	@PostMapping(produces = {"application/json"})
-	public ResponseEntity<String> create(@Valid @RequestBody OSDTO obj) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(service.create(obj));	
+	public ResponseEntity<OSDTO> create(@Valid @RequestBody OSDTO obj) {
+		obj = new OSDTO(service.create(obj));
+		
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId())
+				.toUri();
+		
+		return ResponseEntity.created(uri).build();
 		
 	}
 	
 	@PutMapping(produces = {"application/json"})
-	public ResponseEntity<String> update(@Valid @RequestBody OSDTO obj) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(service.update(obj));	
+	public ResponseEntity<OSDTO> update(@Valid @RequestBody OSDTO obj) {		
+		return ResponseEntity.ok().body(new OSDTO(service.update(obj)));
 		
 	}
 

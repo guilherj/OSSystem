@@ -37,19 +37,17 @@ public class OSService {
 		return repository.findAll();
 	}
 
-	public String create(@Valid OSDTO obj) {
-		fromDTO(obj);
-		return OsSystemConstans.OS + OsSystemConstans.SAVE_SUCESSO;
+	public OS create(@Valid OSDTO obj) {		
+		return fromDTO(obj);
 	}
 	
-	public String update(@Valid OSDTO obj) {
-		findById(obj.getId());
-		fromDTO(obj);
-		return OsSystemConstans.OS + OsSystemConstans.UPDATE_SUCESSO;
+	public OS update(@Valid OSDTO obj) {
+		findById(obj.getId());		
+		return fromDTO(obj);
 	}
 	
 
-	private void fromDTO(OSDTO dto) {
+	private OS fromDTO(OSDTO dto) {
 		OS os = new OS();
 		
 		os.setId(dto.getId());
@@ -63,7 +61,7 @@ public class OSService {
 			os.setDataFechamento(LocalDateTime.now());
 		}
 		
-		repository.save(os);
+		return repository.save(os);
 		
 	}
 

@@ -1,5 +1,6 @@
 package br.com.guilherme.osSystem.controllers;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.guilherme.osSystem.domain.Tecnico;
 import br.com.guilherme.osSystem.dtos.TecnicoDTO;
 import br.com.guilherme.osSystem.services.TecnicoService;
 import jakarta.validation.Valid;
@@ -40,14 +43,19 @@ public class TecnicoController {
 	}
 	
 	@PostMapping(produces = {"application/json"})
-	public ResponseEntity<String> create(@Valid @RequestBody TecnicoDTO tecnicoDTO) {
+	public ResponseEntity<TecnicoDTO> create(@Valid @RequestBody TecnicoDTO tecnicoDTO) {
+		Tecnico tecnico =  service.create(tecnicoDTO);
 		
-		return ResponseEntity.status(HttpStatus.CREATED).body(service.create(tecnicoDTO));		
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(tecnico.getId()).toUri();
+		
+		return ResponseEntity.created(uri).build();
 	}
 	
 	@PutMapping(value = "/{id}", produces = {"application/json"})
-	public ResponseEntity<String> update(@PathVariable Integer id, @Valid @RequestBody TecnicoDTO tecnicoDTO) {
-		return ResponseEntity.status(HttpStatus.OK).body(service.update(id, tecnicoDTO));		
+	public ResponseEntity<TecnicoDTO> update(@PathVariable Integer id, @Valid @RequestBody TecnicoDTO tecnicoDTO) {
+		TecnicoDTO newObj = new TecnicoDTO(service.update(id, tecnicoDTO)); 
+		
+		return ResponseEntity.ok().body(newObj);		
 	}
 	
 	@DeleteMapping(value = "/{id}", produces = {"application/json"})

@@ -34,17 +34,16 @@ public class TecnicoService {
 		return repository.findAll();
 	}
 
-	public String create(TecnicoDTO tecnicoDTO) {	
+	public Tecnico create(TecnicoDTO tecnicoDTO) {	
 		
 		if(pessoaService.findByCPF(tecnicoDTO.getCpf()) != null) {
 			throw new DataIntegratyViolationException(OsSystemConstans.CPF_JA_CADASTRADO);
 		}
 		 		
-		repository.save(new Tecnico(null, tecnicoDTO.getNome(), tecnicoDTO.getCpf(), tecnicoDTO.getTelefone()));
-		return OsSystemConstans.TECNICO + OsSystemConstans.SAVE_SUCESSO;
+		return repository.save(new Tecnico(null, tecnicoDTO.getNome(), tecnicoDTO.getCpf(), tecnicoDTO.getTelefone()));
 	}	
 	
-	public String update(Integer id, TecnicoDTO tecnicoDTO) {
+	public Tecnico update(Integer id, TecnicoDTO tecnicoDTO) {
 		Tecnico oldObj = findById(id);
 		
 		if(pessoaService.findByCPF(tecnicoDTO.getCpf()) != null && pessoaService.findByCPF(tecnicoDTO.getCpf()).getId() != id) {
@@ -54,8 +53,8 @@ public class TecnicoService {
 		oldObj.setNome(tecnicoDTO.getNome());
 		oldObj.setCpf(tecnicoDTO.getCpf());
 		oldObj.setTelefone(tecnicoDTO.getTelefone());
-		repository.save(oldObj);		
-		return OsSystemConstans.TECNICO + OsSystemConstans.UPDATE_SUCESSO;
+			
+		return repository.save(oldObj);
 	}
 	
 	public String delete(Integer id) {
