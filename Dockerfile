@@ -1,4 +1,10 @@
 FROM openjdk:17-jdk-alpine
-COPY target/OS-System.jar app.jar
+
+RUN apt-get install maven -y
+RUN mvn clean install
+
+COPY --from=build /target/OS-System-1.0.0.jar app.jar
+
 EXPOSE 8080
+
 ENTRYPOINT [ "java", "-jar", "app.jar" ]
