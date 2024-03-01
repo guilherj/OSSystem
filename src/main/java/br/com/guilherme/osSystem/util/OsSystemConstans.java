@@ -12,7 +12,6 @@ public class OsSystemConstans {
 	public static final String CPF_JA_CADASTRADO = "CPF já cadastrado na base de dados!";
 	public static final String SAVE_SUCESSO = " criado com sucesso!";
 	public static final String UPDATE_SUCESSO = " atualizado com sucesso!";
-	public static final String DELETE_SUCESSO = " deletado com sucesso!";
 	public static final String POSSUI_OS_NAO_PODE_DELETAR = " possui OS(s), portanto não pode ser deletado.";
 	public static final String OBJETO_NAO_EONCONTRADO = "Objeto não encontrado!";
 	

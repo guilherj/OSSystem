@@ -64,8 +64,9 @@ public class ClienteController {
 	}
 
 	@DeleteMapping(value = "/{id}", produces = { "application/json" })
-	public ResponseEntity<String> delete(@PathVariable Integer id) {
-		return ResponseEntity.status(HttpStatus.OK).body(service.delete(id));
+	public ResponseEntity<Void> delete(@PathVariable Integer id) {
+		service.delete(id);
+		return ResponseEntity.noContent().build();
 	}
 
 }

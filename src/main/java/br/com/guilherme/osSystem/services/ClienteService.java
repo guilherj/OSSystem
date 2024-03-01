@@ -54,16 +54,14 @@ public class ClienteService {
 		return repository.save(oldObj);
 	}
 	
-	public String delete(Integer id) {
+	public void delete(Integer id) {
 		Cliente obj = findById(id);
 		
 		if(obj.getList().size() > 0) {
 			throw new DataIntegratyViolationException(OsSystemConstans.CLIENTE + OsSystemConstans.POSSUI_OS_NAO_PODE_DELETAR);
 		}
 		
-		repository.delete(obj);
-		
-		return OsSystemConstans.CLIENTE + OsSystemConstans.DELETE_SUCESSO;
+		repository.delete(obj);		
 	}
 	
 }
