@@ -52,8 +52,8 @@ public class OSService {
 		
 		os.setId(dto.getId());
 		os.setObservacoes(dto.getObservacoes());
-		os.setPrioridade(Prioridade.toEnum(dto.getPrioridade()));
-		os.setStatus(Status.toEnum(dto.getStatus()));
+		os.setPrioridade(Prioridade.toEnum(dto.getPrioridade().getCod()));
+		os.setStatus(Status.toEnum(dto.getStatus().getCod()));
 		os.setTecnico(tecnicoService.findById(dto.getTecnico()));
 		os.setCliente(clienteService.findById(dto.getCliente()));
 		
