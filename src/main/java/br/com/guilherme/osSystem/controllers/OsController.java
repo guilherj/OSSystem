@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.guilherme.osSystem.dtos.OSDTO;
+import br.com.guilherme.osSystem.dtos.OSGetDTO;
 import br.com.guilherme.osSystem.services.OSService;
 import jakarta.validation.Valid;
 
@@ -30,13 +31,13 @@ public class OsController {
 	private OSService service;
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<OSDTO> findById(@PathVariable Integer id) {
-		return ResponseEntity.ok().body(new OSDTO(service.findById(id)));
+	public ResponseEntity<OSGetDTO> findById(@PathVariable Integer id) {
+		return ResponseEntity.ok().body(new OSGetDTO(service.findById(id)));
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<OSDTO>> findAll() {
-		List<OSDTO> list = service.finAll().stream().map(obj -> new OSDTO(obj)).collect(Collectors.toList());
+	public ResponseEntity<List<OSGetDTO>> findAll() {
+		List<OSGetDTO> list = service.finAll().stream().map(obj -> new OSGetDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(list);		
 	}
 	
