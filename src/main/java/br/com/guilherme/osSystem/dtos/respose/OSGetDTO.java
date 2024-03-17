@@ -1,13 +1,17 @@
-package br.com.guilherme.osSystem.dtos;
+package br.com.guilherme.osSystem.dtos.respose;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import br.com.guilherme.osSystem.domain.Cliente;
 import br.com.guilherme.osSystem.domain.OS;
+import br.com.guilherme.osSystem.domain.Tecnico;
 import br.com.guilherme.osSystem.domain.enums.Prioridade;
 import br.com.guilherme.osSystem.domain.enums.Status;
+import br.com.guilherme.osSystem.dtos.ClienteDTO;
+import br.com.guilherme.osSystem.dtos.TecnicoDTO;
 import br.com.guilherme.osSystem.util.OsSystemConstans;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
@@ -47,11 +51,11 @@ public class OSGetDTO implements Serializable {
 	
 	@Getter
 	@Setter
-	private String tecnico;
+	private TecnicoDTO tecnico;
 	
 	@Getter
 	@Setter
-	private String cliente;
+	private ClienteDTO cliente;
 
 	public OSGetDTO(OS obj) {
 		super();
@@ -61,8 +65,8 @@ public class OSGetDTO implements Serializable {
 		this.observacoes = obj.getObservacoes();
 		this.prioridade = obj.getPrioridade().getCod();
 		this.status = obj.getStatus().getCod();
-		this.tecnico = obj.getTecnico().getNome();
-		this.cliente = obj.getCliente().getNome();
+		this.tecnico = new TecnicoDTO(obj.getTecnico());
+		this.cliente = new ClienteDTO(obj.getCliente());
 	}
 	
 	public Prioridade getPrioridade() {

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.guilherme.osSystem.dtos.OSDTO;
-import br.com.guilherme.osSystem.dtos.OSGetDTO;
+import br.com.guilherme.osSystem.dtos.respose.OSGetDTO;
 import br.com.guilherme.osSystem.services.OSService;
 import jakarta.validation.Valid;
 
